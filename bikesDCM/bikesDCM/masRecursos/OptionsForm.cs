@@ -17,6 +17,7 @@ namespace bikesDCM
         {
             this.Text = "Opciones";
             this.Size = new Size(250, 100);
+            this.BackColor = Color.Gray; 
 
             Button btnModificar = new Button();
             btnModificar.Text = "Modificar";

@@ -32,24 +32,27 @@
             panelTop = new Panel();
             imgCarrito = new PictureBox();
             lblTitulo = new Label();
+            pictureBoxBanderaGif = new PictureBox();
             panelMain = new Panel();
             panelMainBot = new Panel();
             btnInsert = new Button();
             btnBuscar = new Button();
             textBoxCilindrada = new TextBox();
             lblCilindrada = new Label();
-            textBoxTipo = new TextBox();
             lblTipo = new Label();
-            textBoxMarca = new TextBox();
             lblMarca = new Label();
             panelBusqueda = new Panel();
+            comboBoxMarca = new ComboBox();
+            comboBoxTipo = new ComboBox();
             panelMainBikes = new FlowLayoutPanel();
             panelBot = new Panel();
             lblCopyrigth = new Label();
             panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imgCarrito).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBanderaGif).BeginInit();
             panelMain.SuspendLayout();
             panelMainBot.SuspendLayout();
+            panelBusqueda.SuspendLayout();
             panelBot.SuspendLayout();
             SuspendLayout();
             // 
@@ -58,6 +61,7 @@
             panelTop.BackColor = Color.DimGray;
             panelTop.Controls.Add(imgCarrito);
             panelTop.Controls.Add(lblTitulo);
+            panelTop.Controls.Add(pictureBoxBanderaGif);
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
@@ -87,6 +91,17 @@
             lblTitulo.Text = "MOTOSHOP";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // pictureBoxBanderaGif
+            // 
+            pictureBoxBanderaGif.Dock = DockStyle.Fill;
+            pictureBoxBanderaGif.Image = (Image)resources.GetObject("pictureBoxBanderaGif.Image");
+            pictureBoxBanderaGif.Location = new Point(0, 0);
+            pictureBoxBanderaGif.Name = "pictureBoxBanderaGif";
+            pictureBoxBanderaGif.Size = new Size(997, 74);
+            pictureBoxBanderaGif.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxBanderaGif.TabIndex = 2;
+            pictureBoxBanderaGif.TabStop = false;
+            // 
             // panelMain
             // 
             panelMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -94,9 +109,7 @@
             panelMain.Controls.Add(btnBuscar);
             panelMain.Controls.Add(textBoxCilindrada);
             panelMain.Controls.Add(lblCilindrada);
-            panelMain.Controls.Add(textBoxTipo);
             panelMain.Controls.Add(lblTipo);
-            panelMain.Controls.Add(textBoxMarca);
             panelMain.Controls.Add(lblMarca);
             panelMain.Controls.Add(panelBusqueda);
             panelMain.Controls.Add(panelMainBikes);
@@ -151,13 +164,6 @@
             lblCilindrada.TabIndex = 7;
             lblCilindrada.Text = "Cilindrada";
             // 
-            // textBoxTipo
-            // 
-            textBoxTipo.Location = new Point(364, 24);
-            textBoxTipo.Name = "textBoxTipo";
-            textBoxTipo.Size = new Size(100, 23);
-            textBoxTipo.TabIndex = 6;
-            // 
             // lblTipo
             // 
             lblTipo.AutoSize = true;
@@ -167,13 +173,6 @@
             lblTipo.Size = new Size(52, 23);
             lblTipo.TabIndex = 5;
             lblTipo.Text = "Tipo";
-            // 
-            // textBoxMarca
-            // 
-            textBoxMarca.Location = new Point(84, 24);
-            textBoxMarca.Name = "textBoxMarca";
-            textBoxMarca.Size = new Size(100, 23);
-            textBoxMarca.TabIndex = 4;
             // 
             // lblMarca
             // 
@@ -189,10 +188,30 @@
             // 
             panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelBusqueda.AutoSize = true;
+            panelBusqueda.Controls.Add(comboBoxMarca);
+            panelBusqueda.Controls.Add(comboBoxTipo);
             panelBusqueda.Location = new Point(0, -10);
             panelBusqueda.Name = "panelBusqueda";
             panelBusqueda.Size = new Size(997, 106);
             panelBusqueda.TabIndex = 2;
+            // 
+            // comboBoxMarca
+            // 
+            comboBoxMarca.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMarca.Items.AddRange(new object[] { "none", "ducati", "husqvarna", "honda" });
+            comboBoxMarca.Location = new Point(104, 35);
+            comboBoxMarca.Name = "comboBoxMarca";
+            comboBoxMarca.Size = new Size(121, 23);
+            comboBoxMarca.TabIndex = 1;
+            // 
+            // comboBoxTipo
+            // 
+            comboBoxTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTipo.Items.AddRange(new object[] { "none", "supermotard", "naked", "carretera", "motocross", "enduro" });
+            comboBoxTipo.Location = new Point(362, 35);
+            comboBoxTipo.Name = "comboBoxTipo";
+            comboBoxTipo.Size = new Size(121, 23);
+            comboBoxTipo.TabIndex = 0;
             // 
             // panelMainBikes
             // 
@@ -240,9 +259,11 @@
             Load += Catalogo_Load;
             panelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)imgCarrito).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBanderaGif).EndInit();
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
             panelMainBot.ResumeLayout(false);
+            panelBusqueda.ResumeLayout(false);
             panelBot.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -255,9 +276,7 @@
         public PictureBox imgCarrito;
         public FlowLayoutPanel panelMainBikes;
         public Panel panelBusqueda;
-        public TextBox textBoxTipo;
         public Label lblTipo;
-        public TextBox textBoxMarca;
         public Label lblMarca;
         public Button btnBuscar;
         public TextBox textBoxCilindrada;
@@ -266,5 +285,8 @@
         private Label lblCopyrigth;
         private Panel panelMainBot;
         private Button btnInsert;
+        private ComboBox comboBoxTipo;
+        private ComboBox comboBoxMarca;
+        private PictureBox pictureBoxBanderaGif;
     }
 }

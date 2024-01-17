@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace bikesDCM.Conector
 {
@@ -23,11 +24,39 @@ namespace bikesDCM.Conector
 
         public void LoadListFromDatabase()
         {
-            using (MySqlConnection conn = connector.GetConnection())
+            using (MySqlConnection conn = new BasicConector().GetConnection())
             {
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT * FROM moto;";
                 ReadQueryResult(cmd);
+            }
+        }
+
+        public void EliminarMoto(int id)
+        {
+            using (MySqlConnection conn = new BasicConector().GetConnection())
+            {
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM moto WHERE id = @MotoId";
+
+                cmd.Parameters.AddWithValue("@MotoId", id);
+
+                cmd.ExecuteNonQuery();
+            }
+
+        }
+
+        public void ModificarMoto(int id)
+        {
+            using (MySqlConnection conn = new BasicConector().GetConnection())
+            {
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "";
+
+                cmd.Parameters.AddWithValue("@MotoId", id);
+
+                cmd.ExecuteNonQuery();
             }
         }
 

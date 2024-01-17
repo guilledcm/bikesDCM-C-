@@ -64,18 +64,31 @@ namespace bikesDCM.masRecursos
 
             switch (result)
             {
+                //el yes es modificar
                 case DialogResult.Yes:
 
                     break;
 
+                //el no es borrar
                 case DialogResult.No:
+                    MotoConector._instance.EliminarMoto(itemId);
+
+                    foreach (Control control in Catalogo.panelMainBikes.Controls)
+                    {
+                        if (control is Button && Convert.ToInt32(control.Tag) == itemId)
+                        {
+                            Catalogo.panelMainBikes.Controls.Remove(control);
+                            break;
+                        }
+                    }
+
+                    MotoConector._instance.motos.Motos.RemoveAll(m => m.Id == itemId);
+
+                    Catalogo.Instance.Catalogo_Load(sender, e);
 
                     break;
 
 
-                default:
-
-                    break;
             }
         }
     }

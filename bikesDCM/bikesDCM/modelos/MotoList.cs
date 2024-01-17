@@ -15,7 +15,7 @@ namespace bikesDCM.modelos
         {
             Motos = new();
         }
-        public bool AddProd(Moto m)
+        public bool AddMoto(Moto m)
         {
             if (!Motos.Contains(m))
             {

@@ -33,6 +33,8 @@
             imgCarrito = new PictureBox();
             lblTitulo = new Label();
             panelMain = new Panel();
+            panelMainBot = new Panel();
+            btnInsert = new Button();
             btnBuscar = new Button();
             textBoxCilindrada = new TextBox();
             lblCilindrada = new Label();
@@ -47,6 +49,7 @@
             panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imgCarrito).BeginInit();
             panelMain.SuspendLayout();
+            panelMainBot.SuspendLayout();
             panelBot.SuspendLayout();
             SuspendLayout();
             // 
@@ -58,14 +61,14 @@
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
-            panelTop.Size = new Size(871, 74);
+            panelTop.Size = new Size(997, 74);
             panelTop.TabIndex = 0;
             // 
             // imgCarrito
             // 
             imgCarrito.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             imgCarrito.Image = (Image)resources.GetObject("imgCarrito.Image");
-            imgCarrito.Location = new Point(800, 12);
+            imgCarrito.Location = new Point(926, 12);
             imgCarrito.Name = "imgCarrito";
             imgCarrito.Size = new Size(40, 40);
             imgCarrito.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -79,7 +82,7 @@
             lblTitulo.Font = new Font("Verdana", 26.25F, FontStyle.Regular, GraphicsUnit.Point);
             lblTitulo.Location = new Point(241, 9);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(363, 58);
+            lblTitulo.Size = new Size(489, 58);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "MOTOSHOP";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -87,6 +90,7 @@
             // panelMain
             // 
             panelMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelMain.Controls.Add(panelMainBot);
             panelMain.Controls.Add(btnBuscar);
             panelMain.Controls.Add(textBoxCilindrada);
             panelMain.Controls.Add(lblCilindrada);
@@ -98,14 +102,32 @@
             panelMain.Controls.Add(panelMainBikes);
             panelMain.Location = new Point(0, 74);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(871, 461);
+            panelMain.Size = new Size(997, 557);
             panelMain.TabIndex = 2;
+            // 
+            // panelMainBot
+            // 
+            panelMainBot.Controls.Add(btnInsert);
+            panelMainBot.Dock = DockStyle.Bottom;
+            panelMainBot.Location = new Point(0, 499);
+            panelMainBot.Name = "panelMainBot";
+            panelMainBot.Size = new Size(997, 58);
+            panelMainBot.TabIndex = 10;
+            // 
+            // btnInsert
+            // 
+            btnInsert.Location = new Point(425, 18);
+            btnInsert.Name = "btnInsert";
+            btnInsert.Size = new Size(100, 23);
+            btnInsert.TabIndex = 0;
+            btnInsert.Text = "Insertar";
+            btnInsert.UseVisualStyleBackColor = true;
             // 
             // btnBuscar
             // 
             btnBuscar.AutoSize = true;
             btnBuscar.BackColor = Color.Silver;
-            btnBuscar.Location = new Point(748, 19);
+            btnBuscar.Location = new Point(854, 19);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(75, 25);
             btnBuscar.TabIndex = 9;
@@ -114,7 +136,7 @@
             // 
             // textBoxCilindrada
             // 
-            textBoxCilindrada.Location = new Point(596, 20);
+            textBoxCilindrada.Location = new Point(655, 20);
             textBoxCilindrada.Name = "textBoxCilindrada";
             textBoxCilindrada.Size = new Size(100, 23);
             textBoxCilindrada.TabIndex = 8;
@@ -123,7 +145,7 @@
             // 
             lblCilindrada.AutoSize = true;
             lblCilindrada.Font = new Font("Verdana", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblCilindrada.Location = new Point(483, 20);
+            lblCilindrada.Location = new Point(525, 20);
             lblCilindrada.Name = "lblCilindrada";
             lblCilindrada.Size = new Size(107, 23);
             lblCilindrada.TabIndex = 7;
@@ -131,7 +153,7 @@
             // 
             // textBoxTipo
             // 
-            textBoxTipo.Location = new Point(337, 20);
+            textBoxTipo.Location = new Point(364, 24);
             textBoxTipo.Name = "textBoxTipo";
             textBoxTipo.Size = new Size(100, 23);
             textBoxTipo.TabIndex = 6;
@@ -140,7 +162,7 @@
             // 
             lblTipo.AutoSize = true;
             lblTipo.Font = new Font("Verdana", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblTipo.Location = new Point(279, 20);
+            lblTipo.Location = new Point(279, 24);
             lblTipo.Name = "lblTipo";
             lblTipo.Size = new Size(52, 23);
             lblTipo.TabIndex = 5;
@@ -148,7 +170,7 @@
             // 
             // textBoxMarca
             // 
-            textBoxMarca.Location = new Point(119, 20);
+            textBoxMarca.Location = new Point(84, 24);
             textBoxMarca.Name = "textBoxMarca";
             textBoxMarca.Size = new Size(100, 23);
             textBoxMarca.TabIndex = 4;
@@ -157,7 +179,7 @@
             // 
             lblMarca.AutoSize = true;
             lblMarca.Font = new Font("Verdana", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblMarca.Location = new Point(47, 20);
+            lblMarca.Location = new Point(12, 21);
             lblMarca.Name = "lblMarca";
             lblMarca.Size = new Size(66, 23);
             lblMarca.TabIndex = 3;
@@ -167,17 +189,19 @@
             // 
             panelBusqueda.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panelBusqueda.AutoSize = true;
-            panelBusqueda.Location = new Point(0, 0);
+            panelBusqueda.Location = new Point(0, -10);
             panelBusqueda.Name = "panelBusqueda";
-            panelBusqueda.Size = new Size(871, 0);
+            panelBusqueda.Size = new Size(997, 106);
             panelBusqueda.TabIndex = 2;
             // 
             // panelMainBikes
             // 
-            panelMainBikes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            panelMainBikes.Location = new Point(0, 64);
+            panelMainBikes.AutoScroll = true;
+            panelMainBikes.BackColor = Color.Transparent;
+            panelMainBikes.BackgroundImage = Properties.Resources.fondoRace;
+            panelMainBikes.Location = new Point(0, 53);
             panelMainBikes.Name = "panelMainBikes";
-            panelMainBikes.Size = new Size(871, 397);
+            panelMainBikes.Size = new Size(997, 449);
             panelMainBikes.TabIndex = 1;
             // 
             // panelBot
@@ -185,9 +209,9 @@
             panelBot.BackColor = Color.DimGray;
             panelBot.Controls.Add(lblCopyrigth);
             panelBot.Dock = DockStyle.Bottom;
-            panelBot.Location = new Point(0, 535);
+            panelBot.Location = new Point(0, 631);
             panelBot.Name = "panelBot";
-            panelBot.Size = new Size(871, 38);
+            panelBot.Size = new Size(997, 38);
             panelBot.TabIndex = 1;
             // 
             // lblCopyrigth
@@ -195,7 +219,7 @@
             lblCopyrigth.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblCopyrigth.Location = new Point(279, 3);
             lblCopyrigth.Name = "lblCopyrigth";
-            lblCopyrigth.Size = new Size(294, 24);
+            lblCopyrigth.Size = new Size(420, 24);
             lblCopyrigth.TabIndex = 0;
             lblCopyrigth.Text = "guilleDCM copyright © todos los derechos reservados";
             lblCopyrigth.TextAlign = ContentAlignment.MiddleCenter;
@@ -205,15 +229,20 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(871, 573);
+            ClientSize = new Size(997, 669);
             Controls.Add(panelMain);
             Controls.Add(panelBot);
             Controls.Add(panelTop);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Catalogo";
+            Load += Catalogo_Load;
             panelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)imgCarrito).EndInit();
             panelMain.ResumeLayout(false);
             panelMain.PerformLayout();
+            panelMainBot.ResumeLayout(false);
             panelBot.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -235,5 +264,7 @@
         public Label lblCilindrada;
         public Panel panelBot;
         private Label lblCopyrigth;
+        private Panel panelMainBot;
+        private Button btnInsert;
     }
 }

@@ -14,6 +14,7 @@ namespace bikesDCM.Conector
     {
         private string connectionString;
         private MySqlConnection connection;
+
         public BasicConector()
         {
             connectionString = $"server={Constants.HOST}; port={Constants.PORT}; uid={Constants.USER}; " +
@@ -32,9 +33,10 @@ namespace bikesDCM.Conector
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                Console.WriteLine($"Error connecting to the database: {e.Message}");
             }
             return connection;
         }
     }
+
 }

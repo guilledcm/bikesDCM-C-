@@ -37,7 +37,7 @@ namespace bikesDCM.Conector
             {
                 while (reader.Read())
                 {
-                    motos.AddProd(new Moto(
+                    motos.AddMoto(new Moto(
                         reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),

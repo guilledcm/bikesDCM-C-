@@ -56,19 +56,19 @@ namespace bikesDCM.masRecursos
 
             DialogResult result = optionsForm.ShowDialog();
 
+
             switch (result)
             {
                 //el yes es modificar
                 case DialogResult.Yes:
-                    InsertarForm insertarForm = new InsertarForm();
+                    ModificarForm modificarForm = new ModificarForm(itemId); 
 
-                    insertarForm.StartPosition = FormStartPosition.Manual;
-                    insertarForm.Location = mousePosition;
+                    modificarForm.StartPosition = FormStartPosition.Manual;
+                    modificarForm.Location = mousePosition;
 
-                    DialogResult result2 = insertarForm.ShowDialog();
+                    DialogResult result2 = modificarForm.ShowDialog();
 
                     Catalogo.Instance.Catalogo_Load(sender, e);
-
                     break;
 
                 //el no es borrar

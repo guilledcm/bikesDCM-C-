@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
+using bikesDCM.masRecursos;
 
 namespace bikesDCM.Conector
 {
@@ -65,16 +66,30 @@ namespace bikesDCM.Conector
 
                 LoadListFromDatabase();
                 
-        }
+            }
 
 
-        public void ModificarMoto(Moto moto)
+        public void ActualizarMoto(int id,string marca,string tipo , int cilindrad, int precio)
         {
-            int id = moto.Id;
-            Moto motoSeleccionada = MotoConector._instance.motos.Motos.FirstOrDefault(m => m.Id == id);
+            connector = new BasicConector();
+            using (MySqlConnection conn = connector.GetConnection())
+            {
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE moto SET Marca = @Marca, Tipo = @Tipo, Cilindrada = @Cilindrada, Precio = @Precio WHERE Id = @Id";
 
-            
+                cmd.Parameters.AddWithValue("@Marca", marca);
+                cmd.Parameters.AddWithValue("@Tipo", tipo);
+                cmd.Parameters.AddWithValue("@Cilindrada", cilindrad);
+                cmd.Parameters.AddWithValue("@Precio", precio);
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            LoadListFromDatabase();
         }
+
+
 
 
         public int ObtenerPrecioMoto(int itemId)

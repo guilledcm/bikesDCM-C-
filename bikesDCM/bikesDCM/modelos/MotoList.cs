@@ -30,7 +30,7 @@ namespace bikesDCM.modelos
             return Motos.Remove(m);
         }
 
-        public Moto? GetProductById(int Id)
+        public Moto? GetMotoById(int Id)
         {
             foreach (Moto moto in Motos)
             {

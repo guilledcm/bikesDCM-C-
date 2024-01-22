@@ -32,32 +32,61 @@ namespace bikesDCM.Conector
             }
         }
 
-        public void EliminarMoto(int id)
-        {
-            using (MySqlConnection conn = new BasicConector().GetConnection())
+            public void EliminarMoto(int id)
             {
+                using (MySqlConnection conn = new BasicConector().GetConnection())
+                {
 
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM moto WHERE id = @MotoId";
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "DELETE FROM moto WHERE id = @MotoId";
 
-                cmd.Parameters.AddWithValue("@MotoId", id);
+                    cmd.Parameters.AddWithValue("@MotoId", id);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
+
             }
 
+            public void InsertarMoto(Moto nuevaMoto)
+            {
+                using (MySqlConnection conn = connector.GetConnection())
+                {
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = "INSERT INTO moto (Marca, Tipo, Cilindrada, Precio) " +
+                                      "VALUES (@Marca, @Tipo, @Cilindrada, @Precio)";
+
+                    cmd.Parameters.AddWithValue("@Marca", nuevaMoto.Marca);
+                    cmd.Parameters.AddWithValue("@Tipo", nuevaMoto.Tipo);
+                    cmd.Parameters.AddWithValue("@Cilindrada", nuevaMoto.Cilindrada);
+                    cmd.Parameters.AddWithValue("@Precio", nuevaMoto.Precio);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                LoadListFromDatabase();
+                
         }
 
-        public void ModificarMoto(int id)
+
+        public void ModificarMoto(Moto moto)
         {
-            using (MySqlConnection conn = new BasicConector().GetConnection())
+            int id = moto.Id;
+            Moto motoSeleccionada = MotoConector._instance.motos.Motos.FirstOrDefault(m => m.Id == id);
+
+            
+        }
+
+
+        public int ObtenerPrecioMoto(int itemId)
+        {
+            Moto motoSeleccionada = MotoConector._instance.motos.Motos.FirstOrDefault(m => m.Id == itemId);
+
+            if (motoSeleccionada != null)
             {
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "";
-
-                cmd.Parameters.AddWithValue("@MotoId", id);
-
-                cmd.ExecuteNonQuery();
+                return motoSeleccionada.Precio;
             }
+
+            return 0; 
         }
 
         public void ReadQueryResult(MySqlCommand cmd)

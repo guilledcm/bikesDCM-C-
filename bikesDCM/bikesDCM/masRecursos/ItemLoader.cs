@@ -10,7 +10,6 @@ namespace bikesDCM.masRecursos
     internal class ItemLoader
     {
         private Catalogo Catalogo;
-
         public ItemLoader(Catalogo catalogo)
         {
             Catalogo = catalogo;
@@ -41,11 +40,6 @@ namespace bikesDCM.masRecursos
                 b.BackgroundImageLayout = ImageLayout.Stretch;
                 b.TextAlign = ContentAlignment.BottomCenter;
             }
-            else
-            {
-                // Manejar el caso en que la imagen no existe
-                // Puedes mostrar una imagen predeterminada o realizar alguna acción adecuada.
-            }
 
             b.Click += (sender, e) => Button_Click(sender, e, id);
             Catalogo.panelMainBikes.Controls.Add(b);
@@ -66,6 +60,14 @@ namespace bikesDCM.masRecursos
             {
                 //el yes es modificar
                 case DialogResult.Yes:
+                    InsertarForm insertarForm = new InsertarForm();
+
+                    insertarForm.StartPosition = FormStartPosition.Manual;
+                    insertarForm.Location = mousePosition;
+
+                    DialogResult result2 = insertarForm.ShowDialog();
+
+                    Catalogo.Instance.Catalogo_Load(sender, e);
 
                     break;
 
@@ -88,7 +90,10 @@ namespace bikesDCM.masRecursos
 
                     break;
 
+                //el continue es opcion para añadir al carrito
+                case DialogResult.Continue:
 
+                    break;
             }
         }
     }

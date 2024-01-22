@@ -12,6 +12,6 @@ namespace bikesDCM.Constantes
         public static string PASSWORD = "secret";
         public static string DATABASE = "motos";
         public static string HOST = "localhost";
-        public static string PORT = "32773";
+        public static string PORT = "32769";
     }
 }

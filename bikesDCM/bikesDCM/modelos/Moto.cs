@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bikesDCM.modelos
 {
-    internal class Moto
+    public class Moto
     {
         public int Id { get; set; }
         public string Marca { get; set; }
@@ -14,6 +14,7 @@ namespace bikesDCM.modelos
         public int Cilindrada { get; set; }
         public int Precio { get; set; }
         public string url_imagen {  get; set; }
+
         public Moto(int Id, string Marca, string Tipo, int Cilindrada, int Precio, string url_imagen)
         {
             this.Id = Id;
@@ -22,6 +23,12 @@ namespace bikesDCM.modelos
             this.Cilindrada = Cilindrada;
             this.Precio = Precio;
             this.url_imagen = url_imagen;
+        }
+        public Moto(string Marca, string Tipo, int Cilindrada, int Precio) {
+            this.Marca = Marca;
+            this.Tipo = Tipo;
+            this.Cilindrada = Cilindrada;
+            this.Precio = Precio;
         }
         public override bool Equals(object? obj)
         {

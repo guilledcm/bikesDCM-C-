@@ -35,6 +35,7 @@
             pictureBoxBanderaGif = new PictureBox();
             panelMain = new Panel();
             panelMainBot = new Panel();
+            btnGrafico = new Button();
             btnInsert = new Button();
             btnBuscar = new Button();
             textBoxCilindrada = new TextBox();
@@ -74,10 +75,11 @@
             imgCarrito.Image = (Image)resources.GetObject("imgCarrito.Image");
             imgCarrito.Location = new Point(926, 12);
             imgCarrito.Name = "imgCarrito";
-            imgCarrito.Size = new Size(40, 40);
+            imgCarrito.Size = new Size(42, 46);
             imgCarrito.SizeMode = PictureBoxSizeMode.StretchImage;
             imgCarrito.TabIndex = 1;
             imgCarrito.TabStop = false;
+            imgCarrito.Click += imgCarrito_Click;
             // 
             // lblTitulo
             // 
@@ -94,7 +96,6 @@
             // pictureBoxBanderaGif
             // 
             pictureBoxBanderaGif.Dock = DockStyle.Fill;
-            pictureBoxBanderaGif.Image = (Image)resources.GetObject("pictureBoxBanderaGif.Image");
             pictureBoxBanderaGif.Location = new Point(0, 0);
             pictureBoxBanderaGif.Name = "pictureBoxBanderaGif";
             pictureBoxBanderaGif.Size = new Size(997, 74);
@@ -120,6 +121,7 @@
             // 
             // panelMainBot
             // 
+            panelMainBot.Controls.Add(btnGrafico);
             panelMainBot.Controls.Add(btnInsert);
             panelMainBot.Dock = DockStyle.Bottom;
             panelMainBot.Location = new Point(0, 499);
@@ -127,14 +129,24 @@
             panelMainBot.Size = new Size(997, 58);
             panelMainBot.TabIndex = 10;
             // 
+            // btnGrafico
+            // 
+            btnGrafico.Location = new Point(655, 18);
+            btnGrafico.Name = "btnGrafico";
+            btnGrafico.Size = new Size(100, 23);
+            btnGrafico.TabIndex = 1;
+            btnGrafico.Text = "Grafico";
+            btnGrafico.UseVisualStyleBackColor = true;
+            // 
             // btnInsert
             // 
-            btnInsert.Location = new Point(425, 18);
+            btnInsert.Location = new Point(210, 18);
             btnInsert.Name = "btnInsert";
             btnInsert.Size = new Size(100, 23);
             btnInsert.TabIndex = 0;
             btnInsert.Text = "Insertar";
             btnInsert.UseVisualStyleBackColor = true;
+            btnInsert.Click += btnInsert_Click;
             // 
             // btnBuscar
             // 
@@ -288,5 +300,6 @@
         private ComboBox comboBoxTipo;
         private ComboBox comboBoxMarca;
         private PictureBox pictureBoxBanderaGif;
+        private Button btnGrafico;
     }
 }

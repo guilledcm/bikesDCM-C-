@@ -33,13 +33,14 @@ namespace bikesDCM.Conector
             }
         }
 
+
             public void EliminarMoto(int id)
             {
                 using (MySqlConnection conn = new BasicConector().GetConnection())
                 {
 
                     MySqlCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "DELETE FROM moto WHERE id = @MotoId";
+                    cmd.CommandText = "SELECT * FROM moto WHERE ";
 
                     cmd.Parameters.AddWithValue("@MotoId", id);
 
@@ -68,7 +69,6 @@ namespace bikesDCM.Conector
                 
             }
 
-
         public void ActualizarMoto(int id,string marca,string tipo , int cilindrad, int precio)
         {
             connector = new BasicConector();
@@ -89,9 +89,6 @@ namespace bikesDCM.Conector
             LoadListFromDatabase();
         }
 
-
-
-
         public int ObtenerPrecioMoto(int itemId)
         {
             Moto motoSeleccionada = MotoConector._instance.motos.Motos.FirstOrDefault(m => m.Id == itemId);
@@ -102,6 +99,15 @@ namespace bikesDCM.Conector
             }
 
             return 0; 
+        }
+
+        public void AddCarritoMoto(int itemId)
+        {
+            int precio = ObtenerPrecioMoto(itemId);
+            CarritoForm carritoForm = CarritoForm.Instance;
+
+            carritoForm.AgregarAlCarrito(precio);
+            carritoForm.ActualizarVista();
         }
 
         public void ReadQueryResult(MySqlCommand cmd)
@@ -121,5 +127,6 @@ namespace bikesDCM.Conector
                 }
             }
         }
+
     }
 }

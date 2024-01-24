@@ -1,6 +1,6 @@
-﻿namespace bikesDCM
+﻿namespace bikesDCM.masRecursos
 {
-    partial class CarritoForm
+    partial class GraficoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            flowLayoutPanelCarrito = new FlowLayoutPanel();
             SuspendLayout();
             // 
-            // flowLayoutPanelCarrito
-            // 
-            flowLayoutPanelCarrito.AutoScroll = true;
-            flowLayoutPanelCarrito.Dock = DockStyle.Fill;
-            flowLayoutPanelCarrito.Location = new Point(0, 0);
-            flowLayoutPanelCarrito.Name = "flowLayoutPanelCarrito";
-            flowLayoutPanelCarrito.Size = new Size(234, 315);
-            flowLayoutPanelCarrito.TabIndex = 0;
-            // 
-            // CarritoForm
+            // GraficoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
-            ClientSize = new Size(234, 315);
-            Controls.Add(flowLayoutPanelCarrito);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            Name = "CarritoForm";
-            Text = "Carrito";
+            ClientSize = new Size(800, 450);
+            Name = "GraficoForm";
+            Text = "Grafico";
             ResumeLayout(false);
         }
 
         #endregion
-
-        private FlowLayoutPanel flowLayoutPanelCarrito;
     }
 }

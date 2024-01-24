@@ -13,5 +13,6 @@ namespace bikesDCM.Constantes
         public static string DATABASE = "motos";
         public static string HOST = "localhost";
         public static string PORT = "32769";
+        public static string rutaFuente = "fuentes/BILLO___.ttf";
     }
 }

@@ -85,12 +85,12 @@
             // 
             lblTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblTitulo.BackColor = Color.Transparent;
-            lblTitulo.Font = new Font("Verdana", 26.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblTitulo.Font = new Font("Verdana", 72F, FontStyle.Regular, GraphicsUnit.Point);
             lblTitulo.Location = new Point(241, 9);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(489, 58);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "MOTOSHOP";
+            lblTitulo.Text = "MotoShop";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBoxBanderaGif
@@ -137,6 +137,7 @@
             btnGrafico.TabIndex = 1;
             btnGrafico.Text = "Grafico";
             btnGrafico.UseVisualStyleBackColor = true;
+            btnGrafico.Click += btnGrafico_Click;
             // 
             // btnInsert
             // 
@@ -158,6 +159,7 @@
             btnBuscar.TabIndex = 9;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = false;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // textBoxCilindrada
             // 
@@ -210,7 +212,7 @@
             // comboBoxMarca
             // 
             comboBoxMarca.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxMarca.Items.AddRange(new object[] { "none", "ducati", "husqvarna", "honda" });
+            comboBoxMarca.Items.AddRange(new object[] { "", "ducati", "husqvarna", "honda" });
             comboBoxMarca.Location = new Point(104, 35);
             comboBoxMarca.Name = "comboBoxMarca";
             comboBoxMarca.Size = new Size(121, 23);
@@ -219,7 +221,7 @@
             // comboBoxTipo
             // 
             comboBoxTipo.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTipo.Items.AddRange(new object[] { "none", "supermotard", "naked", "carretera", "motocross", "enduro" });
+            comboBoxTipo.Items.AddRange(new object[] { "", "supermotard", "naked", "carretera", "motocross", "enduro" });
             comboBoxTipo.Location = new Point(362, 35);
             comboBoxTipo.Name = "comboBoxTipo";
             comboBoxTipo.Size = new Size(121, 23);

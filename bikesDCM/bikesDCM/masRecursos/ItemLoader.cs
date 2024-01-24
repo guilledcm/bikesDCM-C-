@@ -25,7 +25,7 @@ namespace bikesDCM.masRecursos
             });
         }
 
-        public void CreateItem(int id, string url_imagen)
+        public static void CreateItem(int id, string url_imagen)
         {
             Button b = new Button();
             b.Size = new Size(210, 210);
@@ -42,10 +42,11 @@ namespace bikesDCM.masRecursos
             }
 
             b.Click += (sender, e) => Button_Click(sender, e, id);
-            Catalogo.panelMainBikes.Controls.Add(b);
+
+            Catalogo.Instance.panelMainBikes.Controls.Add(b);
         }
 
-        private void Button_Click(object sender, EventArgs e, int itemId)
+        private static void Button_Click(object sender, EventArgs e, int itemId)
         {
             Point mousePosition = Cursor.Position;
 
@@ -75,11 +76,11 @@ namespace bikesDCM.masRecursos
                 case DialogResult.No:
                     MotoConector._instance.EliminarMoto(itemId);
 
-                    foreach (Control control in Catalogo.panelMainBikes.Controls)
+                    foreach (Control control in Catalogo.Instance.panelMainBikes.Controls)
                     {
                         if (control is Button && Convert.ToInt32(control.Tag) == itemId)
                         {
-                            Catalogo.panelMainBikes.Controls.Remove(control);
+                            Catalogo.Instance.panelMainBikes.Controls.Remove(control);
                             break;
                         }
                     }
@@ -92,7 +93,8 @@ namespace bikesDCM.masRecursos
 
                 //el continue es opcion para añadir al carrito
                 case DialogResult.Continue:
-
+                    MotoConector._instance.AddCarritoMoto(itemId);
+                    Catalogo.Instance.Catalogo_Load(sender, e);
                     break;
             }
         }

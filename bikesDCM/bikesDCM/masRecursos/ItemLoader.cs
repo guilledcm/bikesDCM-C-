@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Drawing;
+using System.IO; // Necesario para la verificación de existencia del archivo
 
 namespace bikesDCM.masRecursos
 {
     internal class ItemLoader
     {
         private Catalogo Catalogo;
+
         public ItemLoader(Catalogo catalogo)
         {
             Catalogo = catalogo;
@@ -17,8 +21,13 @@ namespace bikesDCM.masRecursos
 
         public void LoadMotos()
         {
+            // Limpiar los controles existentes en el panel principal
             Catalogo.panelMainBikes.Controls.Clear();
+
+            // Cargar la lista de motos desde la base de datos
             MotoConector._instance.LoadListFromDatabase();
+
+            // Iterar sobre la lista de motos y crear los elementos visuales correspondientes
             MotoConector._instance.motos.Motos.ForEach(moto =>
             {
                 CreateItem(moto.Id, moto.url_imagen);
@@ -32,6 +41,7 @@ namespace bikesDCM.masRecursos
             b.Margin = new Padding(20, 20, 3, 3);
             b.Cursor = Cursors.Hand;
             b.FlatStyle = FlatStyle.Popup;
+            b.Tag = id; // Asignar el ID de la moto como Tag al botón
 
             if (File.Exists(url_imagen))
             {
@@ -57,12 +67,11 @@ namespace bikesDCM.masRecursos
 
             DialogResult result = optionsForm.ShowDialog();
 
-
             switch (result)
             {
-                //el yes es modificar
                 case DialogResult.Yes:
-                    ModificarForm modificarForm = new ModificarForm(itemId); 
+                    // Modificar la moto
+                    ModificarForm modificarForm = new ModificarForm(itemId);
 
                     modificarForm.StartPosition = FormStartPosition.Manual;
                     modificarForm.Location = mousePosition;
@@ -72,27 +81,33 @@ namespace bikesDCM.masRecursos
                     Catalogo.Instance.Catalogo_Load(sender, e);
                     break;
 
-                //el no es borrar
                 case DialogResult.No:
-                    MotoConector._instance.EliminarMoto(itemId);
+                    // Borrar la moto
+                    DialogResult secondConfirmation = MessageBox.Show("¿Realmente quieres borrar esta PRECIOSIDAD?", "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    foreach (Control control in Catalogo.Instance.panelMainBikes.Controls)
+                    if (secondConfirmation == DialogResult.Yes)
                     {
-                        if (control is Button && Convert.ToInt32(control.Tag) == itemId)
+                        MotoConector._instance.EliminarMoto(itemId);
+
+                        // Eliminar el botón correspondiente de la lista de controles
+                        foreach (Control control in Catalogo.Instance.panelMainBikes.Controls)
                         {
-                            Catalogo.Instance.panelMainBikes.Controls.Remove(control);
-                            break;
+                            if (control is Button && Convert.ToInt32(control.Tag) == itemId)
+                            {
+                                Catalogo.Instance.panelMainBikes.Controls.Remove(control);
+                                break;
+                            }
                         }
+
+                        // Eliminar la moto de la lista
+                        MotoConector._instance.motos.Motos.RemoveAll(m => m.Id == itemId);
+
+                        Catalogo.Instance.Catalogo_Load(sender, e);
                     }
-
-                    MotoConector._instance.motos.Motos.RemoveAll(m => m.Id == itemId);
-
-                    Catalogo.Instance.Catalogo_Load(sender, e);
-
                     break;
 
-                //el continue es opcion para añadir al carrito
                 case DialogResult.Continue:
+                    // Añadir la moto al carrito
                     MotoConector._instance.AddCarritoMoto(itemId);
                     Catalogo.Instance.Catalogo_Load(sender, e);
                     break;

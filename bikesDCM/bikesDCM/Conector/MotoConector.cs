@@ -11,18 +11,26 @@ using bikesDCM.masRecursos;
 
 namespace bikesDCM.Conector
 {
+
     internal class MotoConector
     {
+        // Lista de motos
         public MotoList motos { get; set; }
+
+        // Conector básico para operaciones con la base de datos
         private BasicConector connector;
+
+        // Instancia única de MotoConector (patrón Singleton)
         public static MotoConector _instance = new MotoConector();
 
+        // Constructor privado para Singleton
         private MotoConector()
         {
             connector = new BasicConector();
             motos = new MotoList();
         }
 
+        // Cargar la lista de motos desde la base de datos
         public void LoadListFromDatabase()
         {
             using (MySqlConnection conn = new BasicConector().GetConnection())
@@ -33,43 +41,46 @@ namespace bikesDCM.Conector
             }
         }
 
+        // Eliminar una moto por su ID
+        public void EliminarMoto(int id)
+        {
+            connector = new BasicConector();
 
-            public void EliminarMoto(int id)
+            using (MySqlConnection conn = connector.GetConnection())
             {
-                using (MySqlConnection conn = new BasicConector().GetConnection())
-                {
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM moto WHERE id = @MotoId";
 
-                    MySqlCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "SELECT * FROM moto WHERE ";
+                cmd.Parameters.AddWithValue("@MotoId", id);
 
-                    cmd.Parameters.AddWithValue("@MotoId", id);
-
-                    cmd.ExecuteNonQuery();
-                }
-
+                cmd.ExecuteNonQuery();
             }
 
-            public void InsertarMoto(Moto nuevaMoto)
+            LoadListFromDatabase();
+        }
+
+        // Insertar una nueva moto en la base de datos
+        public void InsertarMoto(Moto nuevaMoto)
+        {
+            using (MySqlConnection conn = connector.GetConnection())
             {
-                using (MySqlConnection conn = connector.GetConnection())
-                {
-                    MySqlCommand cmd = conn.CreateCommand();
-                    cmd.CommandText = "INSERT INTO moto (Marca, Tipo, Cilindrada, Precio) " +
-                                      "VALUES (@Marca, @Tipo, @Cilindrada, @Precio)";
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO moto (Marca, Tipo, Cilindrada, Precio) " +
+                                  "VALUES (@Marca, @Tipo, @Cilindrada, @Precio)";
 
-                    cmd.Parameters.AddWithValue("@Marca", nuevaMoto.Marca);
-                    cmd.Parameters.AddWithValue("@Tipo", nuevaMoto.Tipo);
-                    cmd.Parameters.AddWithValue("@Cilindrada", nuevaMoto.Cilindrada);
-                    cmd.Parameters.AddWithValue("@Precio", nuevaMoto.Precio);
+                cmd.Parameters.AddWithValue("@Marca", nuevaMoto.Marca);
+                cmd.Parameters.AddWithValue("@Tipo", nuevaMoto.Tipo);
+                cmd.Parameters.AddWithValue("@Cilindrada", nuevaMoto.Cilindrada);
+                cmd.Parameters.AddWithValue("@Precio", nuevaMoto.Precio);
 
-                    cmd.ExecuteNonQuery();
-                }
-
-                LoadListFromDatabase();
-                
+                cmd.ExecuteNonQuery();
             }
 
-        public void ActualizarMoto(int id,string marca,string tipo , int cilindrad, int precio)
+            LoadListFromDatabase();
+        }
+
+        // Actualizar la información de una moto en la base de datos
+        public void ActualizarMoto(int id, string marca, string tipo, int cilindrada, int precio)
         {
             connector = new BasicConector();
             using (MySqlConnection conn = connector.GetConnection())
@@ -79,7 +90,7 @@ namespace bikesDCM.Conector
 
                 cmd.Parameters.AddWithValue("@Marca", marca);
                 cmd.Parameters.AddWithValue("@Tipo", tipo);
-                cmd.Parameters.AddWithValue("@Cilindrada", cilindrad);
+                cmd.Parameters.AddWithValue("@Cilindrada", cilindrada);
                 cmd.Parameters.AddWithValue("@Precio", precio);
                 cmd.Parameters.AddWithValue("@Id", id);
 
@@ -89,6 +100,7 @@ namespace bikesDCM.Conector
             LoadListFromDatabase();
         }
 
+        // Obtener el precio de una moto por su ID
         public int ObtenerPrecioMoto(int itemId)
         {
             Moto motoSeleccionada = MotoConector._instance.motos.Motos.FirstOrDefault(m => m.Id == itemId);
@@ -98,9 +110,10 @@ namespace bikesDCM.Conector
                 return motoSeleccionada.Precio;
             }
 
-            return 0; 
+            return 0;
         }
 
+        // Agregar una moto al carrito
         public void AddCarritoMoto(int itemId)
         {
             int precio = ObtenerPrecioMoto(itemId);
@@ -110,6 +123,7 @@ namespace bikesDCM.Conector
             carritoForm.ActualizarVista();
         }
 
+        // Leer el resultado de una consulta y agregar motos a la lista
         public void ReadQueryResult(MySqlCommand cmd)
         {
             using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -127,6 +141,5 @@ namespace bikesDCM.Conector
                 }
             }
         }
-
     }
 }

@@ -90,7 +90,7 @@
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(489, 58);
             lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "MotoShop";
+            lblTitulo.Text = "MotoAdmin";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBoxBanderaGif
@@ -145,7 +145,7 @@
             btnInsert.Name = "btnInsert";
             btnInsert.Size = new Size(100, 23);
             btnInsert.TabIndex = 0;
-            btnInsert.Text = "Insertar";
+            btnInsert.Text = "Añadir";
             btnInsert.UseVisualStyleBackColor = true;
             btnInsert.Click += btnInsert_Click;
             // 

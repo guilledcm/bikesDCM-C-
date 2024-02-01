@@ -1,6 +1,4 @@
 ﻿using OxyPlot.Series;
-using OxyPlot.WindowsForms;
-using OxyPlot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,85 +11,103 @@ using System.Windows.Forms;
 using bikesDCM.Conector;
 using MySql.Data.MySqlClient;
 using OxyPlot.Axes;
+using OxyPlot.WindowsForms;
+using OxyPlot;
 
 namespace bikesDCM.masRecursos
 {
     public partial class GraficoForm : Form
     {
-        private PlotView plotView;
+        // Conector básico para operaciones con la base de datos
         private BasicConector connector;
 
+        // Constructor del formulario GraficoForm
         public GraficoForm()
         {
             InitializeComponent();
-            InicializarComponentesPersonalizados();
-            ConfigurarGrafico();
+            CrearGrafico();
         }
 
-        private void InicializarComponentesPersonalizados()
+        // Método para crear y configurar el gráfico de barras
+        private void CrearGrafico()
         {
-            plotView = new PlotView();
-            plotView.Dock = DockStyle.Fill;
-            Controls.Add(plotView);
-        }
-
-        private void ConfigurarGrafico()
-        {
-            var plotModel = new PlotModel { Title = "motoGraphic" };
-
-            var categoryAxis = new CategoryAxis { Position = AxisPosition.Bottom, Title = "Marcas" };
-            plotModel.Axes.Add(categoryAxis);
-
-            var valueAxis = new LinearAxis { Position = AxisPosition.Left, Minimum = 0, Title = "Cantidad de Motos" };
-            plotModel.Axes.Add(valueAxis);
-
-            plotView.Model = plotModel;
-        }
-
-        private void CargarDatosGrafico()
-        {
-            connector = new BasicConector();
-            using (MySqlConnection conn = connector.GetConnection())
+            // Crear un nuevo modelo de gráfico
+            var model = new PlotModel
             {
-                string[] marcas = { "ducati", "husqvarna", "honda" };
+                Title = "Cantidad de motos por marca",
+                Subtitle = "Gráfico de Barras",
+            };
 
-                foreach (var marca in marcas)
+            // Configurar ejes del gráfico
+            var yAxis = new CategoryAxis
+            {
+                Position = AxisPosition.Left,
+                Title = "Marca",
+            };
+
+            var xAxis = new LinearAxis
+            {
+                Position = AxisPosition.Bottom,
+                Title = "Cantidad",
+                MinimumPadding = 0,
+                AbsoluteMinimum = 0,
+            };
+
+            model.Axes.Add(yAxis);
+            model.Axes.Add(xAxis);
+
+            // Configurar la serie de barras
+            var barSeries = new BarSeries
+            {
+                LabelPlacement = LabelPlacement.Inside,
+                LabelFormatString = "{0}",
+                FillColor = OxyColor.FromRgb(173, 245, 215)
+            };
+
+            try
+            {
+                // Obtener datos de la base de datos y llenar el gráfico
+                connector = new BasicConector();
+                using (MySqlConnection conn = connector.GetConnection())
                 {
-                    string consultaSql = $"SELECT COUNT(*) FROM moto WHERE moto.marca = @marca";
+                    string consulta = "SELECT marca, COUNT(*) AS Cantidad FROM moto GROUP BY marca ORDER BY marca;";
 
-                    using (MySqlCommand cmd = new MySqlCommand(consultaSql, conn))
+                    using (MySqlCommand comando = new MySqlCommand(consulta, conn))
                     {
-                        cmd.Parameters.AddWithValue("@marca", marca);
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Obtener datos de la consulta
+                                string marca = reader["marca"].ToString();
+                                int cantidad = Convert.ToInt32(reader["Cantidad"]);
 
-                        conn.Open();
-                        int cantidadMotos = Convert.ToInt32(cmd.ExecuteScalar());
-                        conn.Close();
-
-                        AgregarBarraAlGrafico(marca, cantidadMotos);
+                                // Agregar etiquetas al eje Y y valores a la serie de barras
+                                yAxis.Labels.Add(marca);
+                                barSeries.Items.Add(new BarItem { Value = cantidad });
+                            }
+                        }
                     }
                 }
             }
-        }
-
-        private void AgregarBarraAlGrafico(string marca, int cantidadMotos)
-        {
-            var plotModel = (PlotModel)plotView.Model;
-            var categoryAxis = plotModel.Axes[0] as CategoryAxis;
-
-            if (!categoryAxis.Labels.Contains(marca))
+            catch (Exception ex)
             {
-                categoryAxis.Labels.Add(marca);
+                // Manejar errores al cargar datos y mostrar un mensaje de error
+                MessageBox.Show($"Error al cargar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            var barSeries = new BarSeries
+            // Agregar la serie de barras al modelo del gráfico
+            model.Series.Add(barSeries);
+
+            // Crear y configurar la vista del gráfico OxyPlot
+            OxyPlot.WindowsForms.PlotView oxyPlotView = new OxyPlot.WindowsForms.PlotView
             {
-                Items = { new BarItem { Value = cantidadMotos } },
-                Title = marca
+                Model = model,
+                Dock = DockStyle.Fill
             };
 
-            plotModel.Series.Add(barSeries);
-
-            plotView.InvalidatePlot(true);
+            // Agregar la vista del gráfico al formulario
+            this.Controls.Add(oxyPlotView);
         }
     }
 }
